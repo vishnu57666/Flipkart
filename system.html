@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart | Exclusive Gift for You!</title>
+    <style>
+        :root {
+            --fk-blue: #2874f0;
+            --fk-yellow: #fb641b;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Roboto, Arial, sans-serif;
+            background-color: #f1f3f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--fk-blue);
+            height: 52px;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .fk-logo {
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .card {
+            background: white;
+            width: 380px;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .gift-box-img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: #212121;
+            margin: 0 0 10px 0;
+        }
+
+        p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        #claim-btn {
+            background-color: var(--fk-yellow);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative; /* Starts relative, becomes fixed on prank */
+            transition: transform 0.1s ease;
+            box-shadow: 0 2px 8px rgba(251, 100, 27, 0.3);
+            text-transform: uppercase;
+        }
+
+        .secure-badge {
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/fkheaderlogo_exploreplus-44005d.svg" class="fk-logo" alt="Flipkart">
+    </header>
+
+    <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" class="gift-box-img" alt="Gift Box">
+        <h2>Congratulations!</h2>
+        <p>You have been awarded a <b>₹5,000 Flipkart Gift Voucher</b> for your recent activity.</p>
+        
+        <div style="height: 60px;">
+            <button id="claim-btn">Claim Now</button>
+        </div>
+
+        <div class="secure-badge">
+            <img src="https://cdn-icons-png.flaticon.com/512/1160/1160221.png" width="14">
+            Verified by Flipkart Secure
+        </div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('claim-btn');
+        let attempts = 0;
+        const maxAttempts = 6; // It will become clickable on the 6th attempt
+
+        btn.addEventListener('mouseover', function() {
+            if (attempts < maxAttempts) {
+                attempts++;
+                
+                // Teleport the button to a random spot
+                const x = Math.random() * (window.innerWidth - 200);
+                const y = Math.random() * (window.innerHeight - 100);
+                
+                this.style.position = 'fixed';
+                this.style.left = x + 'px';
+                this.style.top = y + 'px';
+                this.innerText = "Too slow! Try again";
+            } else {
+                // On the 6th time, it stays still and changes text
+                this.style.position = 'relative';
+                this.style.left = 'auto';
+                this.style.top = 'auto';
+                this.style.backgroundColor = '#4CAF50'; // Turns green to look "safe"
+                this.innerText = "Click Me Now!";
+            }
+        });
+
+        btn.addEventListener('click', function() {
+            if (attempts >= maxAttempts) {
+                // The final prank reveal
+                alert("🤡 APRIL FOOLS! 🤡\n\nDid you really think it was that easy?\n\nBetter luck next year!");
+                window.location.href = "https://www.flipkart.com"; 
+            } else {
+                // This handles mobile taps if they manage to hit it early
+                attempts++;
+            }
+        });
+    </script>
+</body>
+</html>
